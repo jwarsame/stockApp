@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Welcome to StockQuotes!</h1>
+
+{% if ticker %}
+    {{ ticker }}
+{% endif %}
+
+{% if api %}
+	{% if api == "Error..." %}
+		<div class="alert alert-danger" role="alert">
+			<strong>Error: </strong>{{ error }}
+        </div>
+        
+		There was a problem with the API or your ticker symbol, please try again...
+	
+    {% else %}
+    
+    <div class="card text-white bg-dark mb-3" style="max-width: 30rem;">
+        <strong><div class="card-header text-primary bg-dark mb-3"><h2>QUOTE: {{ api.symbol }}</strong></h2></div>
+        <div class="card-body text-light">
+          <h3 class="card-title">{{ api.companyName }} <em>({{ api.symbol}})</em><br/> 
+          <p class="card-text">
+          <h5><strong>Price: ${{ api.latestPrice }}<br/><br/></h5></strong>
+            Previous Close: ${{ api.previousClose }}<br/>
+
+            Market Cap: {{ api.marketCap }}<br/>
+            YTD Change: {{ api.ytdChange }}<br/></br>
+            52Wk High: {{ api.week52High }}<br/>
+            52Wk Low: {{ api.week52Low }}<br/></br>
+          
+    	</div>
+    </div>
+        
+    {% endif %}
+
+{% endif %}
+
+{% endblock %}
